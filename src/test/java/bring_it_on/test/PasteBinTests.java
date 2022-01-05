@@ -8,7 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class RunnerTest {
+public class PasteBinTests {
 
 
     private static final  String PASTE_NAME = "how to gain dominance among developers";

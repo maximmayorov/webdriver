@@ -5,8 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
+import java.time.Duration;
 
 public class PasteBinHomePage extends AbstractPage{
 
@@ -14,6 +15,12 @@ public class PasteBinHomePage extends AbstractPage{
 
     @FindBy(id = "postform-text")
     private WebElement pasteText;
+
+    @FindBy(id = "select2-postform-expiration-container")
+    private WebElement expirationMenu;
+
+    @FindBy(id = "select2-postform-format-container")
+    private WebElement syntaxHighlightingMenu;
 
     @FindBy(id = "postform-name")
     private WebElement pasteName;
@@ -32,35 +39,17 @@ public class PasteBinHomePage extends AbstractPage{
 
     public CreatedPasteBinPage createPaste(String text, String syntaxHighlighting, String expiration, String name) {
         pasteText.sendKeys(text);
-        selectDropDownMenuOption(
-                By.id("select2-postform-expiration-container"),
-                By.xpath("//*[@id=\"select2-postform-expiration-results\"]//li"),
-                expiration);
-        selectDropDownMenuOption(
-                By.id("select2-postform-format-container"),
-                By.xpath("//*[@id=\"select2-postform-format-results\"]/li[3]/ul/li"),
-                syntaxHighlighting);
+        expirationMenu.click();
+        waitForElement(By.xpath("//*[@id=\"select2-postform-expiration-results\"]/li[text()='" + expiration + "']")).click();
+        syntaxHighlightingMenu.click();
+        waitForElement(By.xpath("//*[@id=\"select2-postform-format-results\"]/li/ul/li[text()='" + syntaxHighlighting + "']")).click();
         pasteName.sendKeys(name);
         createButton.click();
         return new CreatedPasteBinPage(driver);
     }
 
-    private void selectDropDownMenuOption(By container, By optionMenu, String optionName) {
-        WebElement optionsContainer = driver.findElement(container);
-        optionsContainer.click();
-
-        List<WebElement> options = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(optionMenu));
-
-        if (options.stream().noneMatch((o) -> o.getText().equals(optionName))) {
-            System.out.println("No option: " + optionName);
-        }
-
-        for (WebElement option: options) {
-            if (option.getText().equals(optionName)) {
-                option.click();
-                break;
-            }
-        }
+    private WebElement waitForElement(By by) {
+        return new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIMEOUT_SECONDS))
+                .until(ExpectedConditions.presenceOfElementLocated(by));
     }
-
 }
