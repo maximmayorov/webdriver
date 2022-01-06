@@ -10,7 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TotalEstimateTest {
+public class GoogleCloudCalculatorTests {
 
     private WebDriver driver;
     private static final String MANUAL_TEST_TOTAL_ESTIMATE = "1,841.97";
@@ -29,8 +29,8 @@ public class TotalEstimateTest {
                 .findCalculatorPage()
                 .openCalculatorPage()
                 .addToEstimate(data);
-        String vmClass = calculatorPage.getVMClass();
-        Assert.assertEquals(data.getMachineClass(), vmClass);
+        String vmClass = calculatorPage.getVMClass().toLowerCase();
+        Assert.assertEquals(data.getMachineClass().toLowerCase(), vmClass);
     }
 
     @Test
@@ -41,8 +41,8 @@ public class TotalEstimateTest {
                 .findCalculatorPage()
                 .openCalculatorPage()
                 .addToEstimate(data);
-        String instanceType = calculatorPage.getInstanceType();
-        Assert.assertEquals(data.getMachineType(), instanceType);
+        String instanceType = calculatorPage.getInstanceType().toLowerCase();
+        Assert.assertTrue(instanceType.contains("n1-standard-8"));
     }
 
     @Test

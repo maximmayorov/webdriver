@@ -21,7 +21,7 @@ public class TotalEstimateTest {
     }
 
     @Test
-    public void totalEstimateEmailTest() {
+    public void totalEstimateInEmailTest() {
         GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
                 .openPage()
                 .findCalculatorPage()
