@@ -9,7 +9,6 @@ public class CalculatorData {
     private String machineClass = "Regular";
     private String series = "N1";
     private String machineType = "n1-standard-8 (vCPUs: 8, RAM: 30GB)";
-    private boolean addGPUs = true;
     private String gpuType = "NVIDIA Tesla T4";
     private String numberOfGPUs = "1";
     private String ssd = "2x375 GB";
@@ -20,13 +19,12 @@ public class CalculatorData {
 
     }
 
-    public CalculatorData(String instances, String os, String machineClass, String series, String machineType, boolean addGPUs, String gpuType, String numberOfGPUs, String ssd, String location, String committedUsage) {
+    public CalculatorData(String instances, String os, String machineClass, String series, String machineType, String gpuType, String numberOfGPUs, String ssd, String location, String committedUsage) {
         this.instances = instances;
         this.os = os;
         this.machineClass = machineClass;
         this.series = series;
         this.machineType = machineType;
-        this.addGPUs = addGPUs;
         this.gpuType = gpuType;
         this.numberOfGPUs = numberOfGPUs;
         this.ssd = ssd;
@@ -52,10 +50,6 @@ public class CalculatorData {
 
     public String getMachineType() {
         return machineType;
-    }
-
-    public boolean isAddGPUs() {
-        return addGPUs;
     }
 
     public String getGpuType() {
@@ -98,10 +92,6 @@ public class CalculatorData {
         this.machineType = machineType;
     }
 
-    public void setAddGPUs(boolean addGPUs) {
-        this.addGPUs = addGPUs;
-    }
-
     public void setGpuType(String gpuType) {
         this.gpuType = gpuType;
     }
@@ -130,7 +120,6 @@ public class CalculatorData {
                 ", machineClass='" + machineClass + '\'' +
                 ", series='" + series + '\'' +
                 ", machineType='" + machineType + '\'' +
-                ", addGPUs=" + addGPUs +
                 ", gpuType='" + gpuType + '\'' +
                 ", numberOfGPUs='" + numberOfGPUs + '\'' +
                 ", ssd='" + ssd + '\'' +
@@ -144,8 +133,7 @@ public class CalculatorData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CalculatorData that = (CalculatorData) o;
-        return addGPUs == that.addGPUs &&
-                Objects.equals(instances, that.instances) &&
+        return Objects.equals(instances, that.instances) &&
                 Objects.equals(os, that.os) &&
                 Objects.equals(machineClass, that.machineClass) &&
                 Objects.equals(series, that.series) &&
@@ -159,7 +147,6 @@ public class CalculatorData {
 
     @Override
     public int hashCode() {
-        return Objects.hash(instances, os, machineClass, series, machineType, addGPUs, gpuType, numberOfGPUs, ssd, location, committedUsage);
+        return Objects.hash(instances, os, machineClass, series, machineType, gpuType, numberOfGPUs, ssd, location, committedUsage);
     }
-
 }

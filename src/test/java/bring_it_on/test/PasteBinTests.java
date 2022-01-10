@@ -1,6 +1,6 @@
 package bring_it_on.test;
 
-import bring_it_on.page.PasteBinHomePage;
+import bring_it_on.page.PasteBinPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -26,7 +26,7 @@ public class PasteBinTests {
 
    @Test
    public void createdPasteBinPageTitleTest() {
-       String pageTitle = new PasteBinHomePage(driver)
+       String pageTitle = new PasteBinPage(driver)
                .openPage()
                .createPaste(PASTE_TEXT, "Bash", "10 Minutes", PASTE_NAME)
                .pageTitle();
@@ -35,7 +35,7 @@ public class PasteBinTests {
 
    @Test
    public void pasteBinSyntaxHighlightingTest() {
-       String syntaxHighlighting = new PasteBinHomePage(driver)
+       String syntaxHighlighting = new PasteBinPage(driver)
                .openPage()
                .createPaste(PASTE_TEXT, "Bash", "10 Minutes", PASTE_NAME)
                .syntaxHighlightingLanguage();
@@ -44,7 +44,7 @@ public class PasteBinTests {
 
    @Test
    public void pasteBinTextTest() {
-       String pasteText = new PasteBinHomePage(driver)
+       String pasteText = new PasteBinPage(driver)
                .openPage()
                .createPaste(PASTE_TEXT, "Bash", "10 Minutes", PASTE_NAME)
                .pasteText();

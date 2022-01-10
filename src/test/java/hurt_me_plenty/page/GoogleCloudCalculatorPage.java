@@ -1,7 +1,9 @@
 package hurt_me_plenty.page;
 
 import hurt_me_plenty.model.CalculatorData;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,10 +53,6 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     public GoogleCloudCalculatorPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
-        switchToCalculatorFrame();
-    }
-
-    private void switchToCalculatorFrame() {
         driver.switchTo().frame(firstFrame).switchTo().frame(secondFrame);
     }
 
@@ -79,13 +77,13 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getSeries());
         machineType.click();
         selectFromDropDownMenu(By.xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), data.getMachineType());
-        if (data.isAddGPUs()) {
-            addGPUsButton.click();
-            waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuType']")).click();
-            selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getGpuType());
-            waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuCount']")).click();
-            selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getNumberOfGPUs());
-        }
+
+        addGPUsButton.click();
+        waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuType']")).click();
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getGpuType());
+        waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuCount']")).click();
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getNumberOfGPUs());
+
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.ssd']")).click();
         selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getSsd());
         location.click();
@@ -97,46 +95,27 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     }
 
     public String getTotalEstimate() {
-        return waitForElement(By.xpath("//h2[@class='md-title']/b[@class='ng-binding']"))
-                .getText()
-                .replace("Total Estimated Cost: USD", "")
-                .replace(" per 1 month", "")
-                .trim();
+        return waitForElement(By.xpath("//h2[@class='md-title']/b[@class='ng-binding']")).getText();
     }
 
     public String getVMClass() {
-        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[4]/div"))
-                .getText()
-                .replace("VM class: ", "")
-                .trim();
+        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[4]/div")).getText();
     }
 
     public String getInstanceType() {
-        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[5]/div[1]"))
-                .getText()
-                .replace("Instance type: ", "")
-                .trim();
+        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[5]/div[1]")).getText();
     }
 
     public String getLocalSSD() {
-        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[8]/div[1]"))
-                .getText()
-                .replace("Local SSD: ", "")
-                .trim();
+        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[8]/div[1]")).getText();
     }
 
     public String getRegion() {
-        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[1]/div"))
-                .getText()
-                .replace("Region: ", "")
-                .trim();
+        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[1]/div")).getText();
     }
 
     public String getCommitmentTerm() {
-        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[3]/div"))
-                .getText()
-                .replace("Commitment term: ", "")
-                .trim();
+        return waitForElement(By.xpath("//*[@id='compute']/md-list/md-list-item[3]/div")).getText();
     }
 
     private WebElement waitForElement(By by) {

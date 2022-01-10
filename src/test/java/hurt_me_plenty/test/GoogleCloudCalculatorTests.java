@@ -30,7 +30,7 @@ public class GoogleCloudCalculatorTests {
                 .openCalculatorPage()
                 .addToEstimate(data);
         String vmClass = calculatorPage.getVMClass().toLowerCase();
-        Assert.assertEquals(data.getMachineClass().toLowerCase(), vmClass);
+        Assert.assertTrue(vmClass.contains(data.getMachineClass().toLowerCase()));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class GoogleCloudCalculatorTests {
                 .openCalculatorPage()
                 .addToEstimate(data);
         String instanceType = calculatorPage.getInstanceType().toLowerCase();
-        Assert.assertTrue(instanceType.contains("n1-standard-8"));
+        Assert.assertTrue(instanceType.contains(data.getMachineType().toLowerCase()));
     }
 
     @Test
@@ -53,9 +53,8 @@ public class GoogleCloudCalculatorTests {
                 .findCalculatorPage()
                 .openCalculatorPage()
                 .addToEstimate(data);
-        String region = calculatorPage.getRegion();
-        Assert.assertEquals(data.getLocation(), region);
-
+        String region = calculatorPage.getRegion().toLowerCase();
+        Assert.assertTrue(region.contains(data.getLocation().toLowerCase()));
     }
 
     @Test
@@ -66,8 +65,8 @@ public class GoogleCloudCalculatorTests {
                 .findCalculatorPage()
                 .openCalculatorPage()
                 .addToEstimate(data);
-        String localSSD = calculatorPage.getLocalSSD();
-        Assert.assertEquals(data.getSsd(), localSSD);
+        String localSSD = calculatorPage.getLocalSSD().toLowerCase();
+        Assert.assertTrue(localSSD.contains(data.getSsd().toLowerCase()));
     }
 
     @Test
@@ -78,8 +77,8 @@ public class GoogleCloudCalculatorTests {
                 .findCalculatorPage()
                 .openCalculatorPage()
                 .addToEstimate(data);
-        String commitmentTerm = calculatorPage.getCommitmentTerm();
-        Assert.assertEquals(data.getCommittedUsage(), commitmentTerm);
+        String commitmentTerm = calculatorPage.getCommitmentTerm().toLowerCase();
+        Assert.assertTrue(commitmentTerm.contains(data.getCommittedUsage().toLowerCase()));
     }
 
     @Test
@@ -90,8 +89,7 @@ public class GoogleCloudCalculatorTests {
                 .openCalculatorPage()
                 .addToEstimate(new CalculatorData());
         String totalEstimate = calculatorPage.getTotalEstimate();
-        Assert.assertEquals(MANUAL_TEST_TOTAL_ESTIMATE, totalEstimate);
-
+        Assert.assertTrue(totalEstimate.contains(MANUAL_TEST_TOTAL_ESTIMATE));
     }
 
     @AfterMethod(alwaysRun = true)

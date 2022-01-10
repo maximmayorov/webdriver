@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class PasteBinHomePage {
+public class PasteBinPage {
 
     private static final String PAGE_URL = "https://pastebin.com";
     private static final int WAIT_TIMEOUT_SECONDS = 10;
@@ -28,12 +28,12 @@ public class PasteBinHomePage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement createButton;
 
-    public PasteBinHomePage(WebDriver driver) {
+    public PasteBinPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public PasteBinHomePage openPage() {
+    public PasteBinPage openPage() {
         driver.get(PAGE_URL);
         return this;
     }

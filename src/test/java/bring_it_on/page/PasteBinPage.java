@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class PasteBinHomePage extends AbstractPage{
+public class PasteBinPage extends AbstractPage{
 
     private static final String PAGE_URL = "https://pastebin.com";
 
@@ -28,11 +28,11 @@ public class PasteBinHomePage extends AbstractPage{
     @FindBy(xpath = "//button[@type=\"submit\"]")
     private WebElement createButton;
 
-    public PasteBinHomePage(WebDriver driver) {
+    public PasteBinPage(WebDriver driver) {
         super(driver);
     }
 
-    public PasteBinHomePage openPage() {
+    public PasteBinPage openPage() {
         driver.get(PAGE_URL);
         return this;
     }
