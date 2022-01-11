@@ -63,7 +63,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         for (WebElement element: elementList) {
             if (element.getText().equals(item)) {
                 wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-                break;
+                return;
             }
         }
         throw new NoSuchElementException("The dropdown menu doesn't contain the option " + item);
