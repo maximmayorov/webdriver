@@ -2,6 +2,7 @@ package hurt_me_plenty.page;
 
 import hurt_me_plenty.model.CalculatorData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -56,46 +57,52 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         driver.switchTo().frame(firstFrame).switchTo().frame(secondFrame);
     }
 
-    private void selectFromDropDownMenu(By by, String data) {
+    private void selectFromDropDownMenu(By by, String item) {
         List<WebElement> elementList = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
         for (WebElement element: elementList) {
-            if (element.getText().equals(data)) {
+            if (element.getText().equals(item)) {
                 wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-                break;
+                return;
             }
         }
+        throw new NoSuchElementException("The dropdown menu doesn't contain the option " + item);
     }
 
     public GoogleCloudCalculatorPage addToEstimate(CalculatorData data) {
         tabComputeEngine.click();
         numberOfInstance.sendKeys(data.getInstances());
         operatingSystem.click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getOs());
+        selectFromDropDownMenu(By.
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getOs());
         machineClass.click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getMachineClass());
+        selectFromDropDownMenu(By.
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getVmClass());
         series.click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getSeries());
+        selectFromDropDownMenu(By.
+                xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getSeries());
         machineType.click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), data.getMachineType());
-
+        selectFromDropDownMenu(By.
+                xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), data.getInstanceType());
         addGPUsButton.click();
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuType']")).click();
         selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getGpuType());
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuCount']")).click();
         selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getNumberOfGPUs());
-
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.ssd']")).click();
         selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getSsd());
         location.click();
-        selectFromDropDownMenu(By.xpath("//div[@class='md-select-menu-container cpc-region-select md-active md-clickable']/md-select-menu/md-content/md-optgroup/md-option/div"), data.getLocation());
+        selectFromDropDownMenu(By.
+                xpath("//div[@class='md-select-menu-container cpc-region-select md-active md-clickable'] " +
+                        "/md-select-menu/md-content/md-optgroup/md-option/div"), data.getLocation());
         committedUsage.click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getCommittedUsage());
+        selectFromDropDownMenu(By.
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getCommittedUsage());
         addToEstimateButton.click();
         return this;
     }
 
     public String getTotalEstimate() {
-        return waitForElement(By.xpath("//h2[@class='md-title']/b[@class='ng-binding']")).getText();
+        return waitForElement(By.xpath("//h2/b")).getText();
     }
 
     public String getVMClass() {

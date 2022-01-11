@@ -4,29 +4,27 @@ import java.util.Objects;
 
 public class CalculatorData {
 
-    private String instances = "4";
-    private String os = "Free: Debian, CentOS, CoreOS, Ubuntu or BYOL (Bring Your Own License)";
-    private String machineClass = "Regular";
-    private String series = "N1";
-    private String machineType = "n1-standard-8 (vCPUs: 8, RAM: 30GB)";
-    private boolean addGPUs = true;
-    private String gpuType = "NVIDIA Tesla T4";
-    private String numberOfGPUs = "1";
-    private String ssd = "2x375 GB";
-    private String location = "Frankfurt (europe-west3)";
-    private String committedUsage = "1 Year";
+    private String instances;
+    private String os;
+    private String vmClass;
+    private String series;
+    private String InstanceType;
+    private String gpuType;
+    private String numberOfGPUs;
+    private String ssd;
+    private String location;
+    private String committedUsage;
 
     public CalculatorData() {
 
     }
 
-    public CalculatorData(String instances, String os, String machineClass, String series, String machineType, boolean addGPUs, String gpuType, String numberOfGPUs, String ssd, String location, String committedUsage) {
+    public CalculatorData(String instances, String os, String vmClass, String series, String InstanceType, String gpuType, String numberOfGPUs, String ssd, String location, String committedUsage) {
         this.instances = instances;
         this.os = os;
-        this.machineClass = machineClass;
+        this.vmClass = vmClass;
         this.series = series;
-        this.machineType = machineType;
-        this.addGPUs = addGPUs;
+        this.InstanceType = InstanceType;
         this.gpuType = gpuType;
         this.numberOfGPUs = numberOfGPUs;
         this.ssd = ssd;
@@ -42,20 +40,16 @@ public class CalculatorData {
         return os;
     }
 
-    public String getMachineClass() {
-        return machineClass;
+    public String getVmClass() {
+        return vmClass;
     }
 
     public String getSeries() {
         return series;
     }
 
-    public String getMachineType() {
-        return machineType;
-    }
-
-    public boolean isAddGPUs() {
-        return addGPUs;
+    public String getInstanceType() {
+        return InstanceType;
     }
 
     public String getGpuType() {
@@ -86,20 +80,16 @@ public class CalculatorData {
         this.os = os;
     }
 
-    public void setMachineClass(String machineClass) {
-        this.machineClass = machineClass;
+    public void setVmClass(String vmClass) {
+        this.vmClass = vmClass;
     }
 
     public void setSeries(String series) {
         this.series = series;
     }
 
-    public void setMachineType(String machineType) {
-        this.machineType = machineType;
-    }
-
-    public void setAddGPUs(boolean addGPUs) {
-        this.addGPUs = addGPUs;
+    public void setInstanceType(String instanceType) {
+        this.InstanceType = instanceType;
     }
 
     public void setGpuType(String gpuType) {
@@ -127,10 +117,9 @@ public class CalculatorData {
         return "CalculatorData{" +
                 "instances='" + instances + '\'' +
                 ", os='" + os + '\'' +
-                ", machineClass='" + machineClass + '\'' +
+                ", vmClass='" + vmClass + '\'' +
                 ", series='" + series + '\'' +
-                ", machineType='" + machineType + '\'' +
-                ", addGPUs=" + addGPUs +
+                ", InstanceType='" + InstanceType + '\'' +
                 ", gpuType='" + gpuType + '\'' +
                 ", numberOfGPUs='" + numberOfGPUs + '\'' +
                 ", ssd='" + ssd + '\'' +
@@ -144,12 +133,11 @@ public class CalculatorData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CalculatorData that = (CalculatorData) o;
-        return addGPUs == that.addGPUs &&
-                Objects.equals(instances, that.instances) &&
+        return Objects.equals(instances, that.instances) &&
                 Objects.equals(os, that.os) &&
-                Objects.equals(machineClass, that.machineClass) &&
+                Objects.equals(vmClass, that.vmClass) &&
                 Objects.equals(series, that.series) &&
-                Objects.equals(machineType, that.machineType) &&
+                Objects.equals(InstanceType, that.InstanceType) &&
                 Objects.equals(gpuType, that.gpuType) &&
                 Objects.equals(numberOfGPUs, that.numberOfGPUs) &&
                 Objects.equals(ssd, that.ssd) &&
@@ -159,7 +147,6 @@ public class CalculatorData {
 
     @Override
     public int hashCode() {
-        return Objects.hash(instances, os, machineClass, series, machineType, addGPUs, gpuType, numberOfGPUs, ssd, location, committedUsage);
+        return Objects.hash(instances, os, vmClass, series, InstanceType, gpuType, numberOfGPUs, ssd, location, committedUsage);
     }
-
 }

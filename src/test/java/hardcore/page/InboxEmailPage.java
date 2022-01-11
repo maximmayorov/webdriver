@@ -30,7 +30,7 @@ public class InboxEmailPage extends AbstractPage {
         WebElement totalEstimate = fluentWait.until(driver -> {
             driver.navigate().refresh();
             driver.switchTo().frame(driver.findElement(By.id("ifmail")));
-            return  driver.findElement(By.xpath("//*[text()='Total Estimated Monthly Cost']/../../td[2]/h3"));
+            return  driver.findElement(By.xpath("//table/tbody/tr/td[2]/h3"));
         });
         return totalEstimate.getText();
     }

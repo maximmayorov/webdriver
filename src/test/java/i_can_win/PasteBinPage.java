@@ -44,7 +44,7 @@ public class PasteBinPage {
         new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIMEOUT_SECONDS))
                 .until(ExpectedConditions
                         .presenceOfElementLocated(By
-                                .xpath("//*[@id=\"select2-postform-expiration-results\"]/li[text()='" + expiration + "']"))).click();
+                                .xpath("//*[@id='select2-postform-expiration-results']/li[text()='" + expiration + "']"))).click();
         pasteName.sendKeys(name);
         createButton.click();
     }

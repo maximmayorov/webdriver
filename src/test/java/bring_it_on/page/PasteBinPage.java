@@ -25,7 +25,7 @@ public class PasteBinPage extends AbstractPage{
     @FindBy(id = "postform-name")
     private WebElement pasteName;
 
-    @FindBy(xpath = "//button[@type=\"submit\"]")
+    @FindBy(xpath = "//button[@type='submit']")
     private WebElement createButton;
 
     public PasteBinPage(WebDriver driver) {
@@ -40,9 +40,9 @@ public class PasteBinPage extends AbstractPage{
     public CreatedPasteBinPage createPaste(String text, String syntaxHighlighting, String expiration, String name) {
         pasteText.sendKeys(text);
         expirationMenu.click();
-        waitForElement(By.xpath("//*[@id=\"select2-postform-expiration-results\"]/li[text()='" + expiration + "']")).click();
+        waitForElement(By.xpath("//*[@id='select2-postform-expiration-results']/li[text()='" + expiration + "']")).click();
         syntaxHighlightingMenu.click();
-        waitForElement(By.xpath("//*[@id=\"select2-postform-format-results\"]/li/ul/li[text()='" + syntaxHighlighting + "']")).click();
+        waitForElement(By.xpath("//*[@id='select2-postform-format-results']/li/ul/li[text()='" + syntaxHighlighting + "']")).click();
         pasteName.sendKeys(name);
         createButton.click();
         return new CreatedPasteBinPage(driver);
