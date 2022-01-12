@@ -1,6 +1,5 @@
 package hardcore.page;
 
-import hardcore.model.CalculatorData;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -54,7 +53,7 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         switchToCalculatorFrame();
     }
 
-    private void switchToCalculatorFrame() {
+    public void switchToCalculatorFrame() {
         driver.switchTo().frame(firstFrame).switchTo().frame(secondFrame);
     }
 
@@ -69,55 +68,78 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         throw new NoSuchElementException("The dropdown menu doesn't contain the option " + item);
     }
 
-    public GoogleCloudCalculatorPage addToEstimate(CalculatorData data) {
+    public void selectTabComputeEngine() {
         tabComputeEngine.click();
-        numberOfInstance.sendKeys(data.getInstances());
+    }
+
+    public void setNumberOfInstance(String number) {
+        numberOfInstance.sendKeys(number);
+    }
+
+    public void selectOS(String os) {
         operatingSystem.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getOs());
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), os);
+    }
+
+    public void selectVMClass(String vmClass) {
         machineClass.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getVmClass());
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), vmClass);
+    }
+
+    public void selectMachineSeries(String machineSeries) {
         series.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getSeries());
+                xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), machineSeries);
+    }
+
+    public void selectInstanceType(String instanceType) {
         machineType.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), data.getInstanceType());
+                xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), instanceType);
+    }
+
+    public void setAddGPUsCheckBox() {
         addGPUsButton.click();
+    }
+
+    public void selectGPUType(String gpuType) {
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuType']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getGpuType());
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), gpuType);
+    }
+
+    public void selectNumberOfGPUs(String number) {
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuCount']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getNumberOfGPUs());
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), number);
+    }
+
+    public void selectSSDSize(String ssdSize) {
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.ssd']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getSsd());
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), ssdSize);
+    }
+
+    public void selectLocation(String machineLocation) {
         location.click();
         selectFromDropDownMenu(By.
                 xpath("//div[@class='md-select-menu-container cpc-region-select md-active md-clickable'] " +
-                        "/md-select-menu/md-content/md-optgroup/md-option/div"), data.getLocation());
-        committedUsage.click();
-        selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getCommittedUsage());
-        addToEstimateButton.click();
-        return this;
+                        "/md-select-menu/md-content/md-optgroup/md-option/div"), machineLocation);
     }
 
-    public String getTotalEstimateFromEmail() {
+    public void selectCommittedUsage(String usage) {
+        committedUsage.click();
+        selectFromDropDownMenu(By.
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), usage);
+    }
+
+    public void addConfigurationToEstimate() {
+        addToEstimateButton.click();
+    }
+
+    public void sendEmail(String email) {
         waitForElement(By.id("email_quote")).click();
-        String calculatorPage = driver.getWindowHandle();
-        driver.switchTo().newWindow(WindowType.TAB);
-        InboxEmailPage inboxEmailPage = new EmailServicePage(driver)
-                .openPage()
-                .createRandomEmail()
-                .openInboxEmailPage();
-        String email = inboxEmailPage.getEmail();
-        String emailPage = driver.getWindowHandle();
-        driver.switchTo().window(calculatorPage);
-        switchToCalculatorFrame();
         waitForElement(By.xpath("//input[@ng-model='emailQuote.user.email']")).sendKeys(email);
         waitForElement(By.xpath("//button[@aria-label='Send Email']")).click();
-        driver.switchTo().window(emailPage);
-        return inboxEmailPage.getTotalEstimate();
     }
 
     public String getTotalEstimate() {

@@ -53,11 +53,6 @@ public class PasteBinTests {
 
    @AfterMethod(alwaysRun = true)
    public void browserTearDown() {
-       try {
-           Thread.sleep(5000);
-       } catch (InterruptedException e) {
-           e.printStackTrace();
-       }
        driver.quit();
        driver = null;
    }

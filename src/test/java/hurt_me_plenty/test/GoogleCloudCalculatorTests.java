@@ -3,6 +3,7 @@ package hurt_me_plenty.test;
 import hurt_me_plenty.model.CalculatorData;
 import hurt_me_plenty.page.GoogleCloudCalculatorPage;
 import hurt_me_plenty.page.GoogleCloudPage;
+import hurt_me_plenty.steps.GoogleCloudCalculatorSteps;
 import hurt_me_plenty.util.CalculatorDataCreator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,21 +16,24 @@ public class GoogleCloudCalculatorTests {
 
     private WebDriver driver;
     private static final String MANUAL_TEST_TOTAL_ESTIMATE = "1,841.97";
+    private GoogleCloudCalculatorSteps googleCloudCalculatorSteps;
+    private GoogleCloudCalculatorPage calculatorPage;
 
     @BeforeMethod(alwaysRun = true)
     public void browserSetup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        calculatorPage = new GoogleCloudPage(driver)
+                .openPage()
+                .findCalculatorPage()
+                .openCalculatorPage();
     }
 
     @Test
     public void vmClassTest() {
         CalculatorData data = CalculatorDataCreator.createDefaultData();
-        GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
-                .openPage()
-                .findCalculatorPage()
-                .openCalculatorPage()
-                .addToEstimate(data);
+        googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(calculatorPage);
+        googleCloudCalculatorSteps.addToEstimate(data);
         String vmClass = calculatorPage.getVMClass().toLowerCase();
         Assert.assertTrue(vmClass.contains(data.getVmClass().toLowerCase()));
     }
@@ -37,11 +41,8 @@ public class GoogleCloudCalculatorTests {
     @Test
     public void instanceTypeTest() {
         CalculatorData data = CalculatorDataCreator.createDefaultData();
-        GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
-                .openPage()
-                .findCalculatorPage()
-                .openCalculatorPage()
-                .addToEstimate(data);
+        googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(calculatorPage);
+        googleCloudCalculatorSteps.addToEstimate(data);
         String instanceType = calculatorPage.getInstanceType().toLowerCase();
         Assert.assertTrue(instanceType.contains(data.getInstanceType().toLowerCase()));
     }
@@ -49,11 +50,8 @@ public class GoogleCloudCalculatorTests {
     @Test
     public void regionTest() {
         CalculatorData data = CalculatorDataCreator.createDefaultData();
-        GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
-                .openPage()
-                .findCalculatorPage()
-                .openCalculatorPage()
-                .addToEstimate(data);
+        googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(calculatorPage);
+        googleCloudCalculatorSteps.addToEstimate(data);
         String region = calculatorPage.getRegion().toLowerCase();
         Assert.assertTrue(region.contains(data.getLocation().toLowerCase()));
     }
@@ -61,11 +59,8 @@ public class GoogleCloudCalculatorTests {
     @Test
     public void localSSDTest() {
         CalculatorData data = CalculatorDataCreator.createDefaultData();
-        GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
-                .openPage()
-                .findCalculatorPage()
-                .openCalculatorPage()
-                .addToEstimate(data);
+        googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(calculatorPage);
+        googleCloudCalculatorSteps.addToEstimate(data);
         String localSSD = calculatorPage.getLocalSSD().toLowerCase();
         Assert.assertTrue(localSSD.contains(data.getSsd().toLowerCase()));
     }
@@ -73,11 +68,8 @@ public class GoogleCloudCalculatorTests {
     @Test
     public void commitmentTermTest() {
         CalculatorData data = CalculatorDataCreator.createDefaultData();
-        GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
-                .openPage()
-                .findCalculatorPage()
-                .openCalculatorPage()
-                .addToEstimate(data);
+        googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(calculatorPage);
+        googleCloudCalculatorSteps.addToEstimate(data);
         String commitmentTerm = calculatorPage.getCommitmentTerm().toLowerCase();
         Assert.assertTrue(commitmentTerm.contains(data.getCommittedUsage().toLowerCase()));
     }
@@ -85,11 +77,8 @@ public class GoogleCloudCalculatorTests {
     @Test
     public void totalEstimateMatchesWithManualTestTotalEstimate() {
         CalculatorData data = CalculatorDataCreator.createDefaultData();
-        GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
-                .openPage()
-                .findCalculatorPage()
-                .openCalculatorPage()
-                .addToEstimate(data);
+        googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(calculatorPage);
+        googleCloudCalculatorSteps.addToEstimate(data);
         String totalEstimate = calculatorPage.getTotalEstimate();
         Assert.assertTrue(totalEstimate.contains(MANUAL_TEST_TOTAL_ESTIMATE));
     }

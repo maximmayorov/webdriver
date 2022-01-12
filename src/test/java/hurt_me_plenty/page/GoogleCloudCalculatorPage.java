@@ -1,6 +1,5 @@
 package hurt_me_plenty.page;
 
-import hurt_me_plenty.model.CalculatorData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -68,37 +67,72 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
         throw new NoSuchElementException("The dropdown menu doesn't contain the option " + item);
     }
 
-    public GoogleCloudCalculatorPage addToEstimate(CalculatorData data) {
+    public void selectTabComputeEngine() {
         tabComputeEngine.click();
-        numberOfInstance.sendKeys(data.getInstances());
+    }
+
+    public void setNumberOfInstance(String number) {
+        numberOfInstance.sendKeys(number);
+    }
+
+    public void selectOS(String os) {
         operatingSystem.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getOs());
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), os);
+    }
+
+    public void selectVMClass(String vmClass) {
         machineClass.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getVmClass());
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), vmClass);
+    }
+
+    public void selectMachineSeries(String machineSeries) {
         series.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getSeries());
+                xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), machineSeries);
+    }
+
+    public void selectInstanceType(String instanceType) {
         machineType.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), data.getInstanceType());
+                xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), instanceType);
+    }
+
+    public void setAddGPUsCheckBox() {
         addGPUsButton.click();
+    }
+
+    public void selectGPUType(String gpuType) {
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuType']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), data.getGpuType());
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), gpuType);
+    }
+
+    public void selectNumberOfGPUs(String number) {
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuCount']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getNumberOfGPUs());
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), number);
+    }
+
+    public void selectSSDSize(String ssdSize) {
         waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.ssd']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), data.getSsd());
+        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), ssdSize);
+    }
+
+    public void selectLocation(String machineLocation) {
         location.click();
         selectFromDropDownMenu(By.
                 xpath("//div[@class='md-select-menu-container cpc-region-select md-active md-clickable'] " +
-                        "/md-select-menu/md-content/md-optgroup/md-option/div"), data.getLocation());
+                        "/md-select-menu/md-content/md-optgroup/md-option/div"), machineLocation);
+    }
+
+    public void selectCommittedUsage(String usage) {
         committedUsage.click();
         selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), data.getCommittedUsage());
+                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), usage);
+    }
+
+    public void addConfigurationToEstimate() {
         addToEstimateButton.click();
-        return this;
     }
 
     public String getTotalEstimate() {

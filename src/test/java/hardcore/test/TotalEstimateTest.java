@@ -3,6 +3,7 @@ package hardcore.test;
 import hardcore.model.CalculatorData;
 import hardcore.page.GoogleCloudCalculatorPage;
 import hardcore.page.GoogleCloudPage;
+import hardcore.steps.GoogleCloudCalculatorSteps;
 import hardcore.util.CalculatorDataCreator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,10 +28,11 @@ public class TotalEstimateTest {
         GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
                 .openPage()
                 .findCalculatorPage()
-                .openCalculatorPage()
-                .addToEstimate(data);
+                .openCalculatorPage();
+        GoogleCloudCalculatorSteps googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(driver, calculatorPage);
+        googleCloudCalculatorSteps.addToEstimate(data);
         String calculatorTotalEstimate = calculatorPage.getTotalEstimate();
-        String emailTotalEstimate = calculatorPage.getTotalEstimateFromEmail();
+        String emailTotalEstimate = googleCloudCalculatorSteps.getTotalEstimateFromEmail();
         Assert.assertTrue(calculatorTotalEstimate.contains(emailTotalEstimate));
     }
 

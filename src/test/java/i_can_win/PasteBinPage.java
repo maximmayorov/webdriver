@@ -14,6 +14,7 @@ public class PasteBinPage {
 
     private static final String PAGE_URL = "https://pastebin.com";
     private static final int WAIT_TIMEOUT_SECONDS = 10;
+    private static final String EXPIRATION_DROPDOWN_OPTION_XPATH = "//*[@id='select2-postform-expiration-results']/li[text()='%s']";
     private final WebDriver driver;
 
     @FindBy(id = "postform-text")
@@ -44,7 +45,7 @@ public class PasteBinPage {
         new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIMEOUT_SECONDS))
                 .until(ExpectedConditions
                         .presenceOfElementLocated(By
-                                .xpath("//*[@id='select2-postform-expiration-results']/li[text()='" + expiration + "']"))).click();
+                                .xpath(String.format(EXPIRATION_DROPDOWN_OPTION_XPATH, expiration)))).click();
         pasteName.sendKeys(name);
         createButton.click();
     }
