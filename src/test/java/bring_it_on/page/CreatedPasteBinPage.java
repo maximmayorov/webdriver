@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CreatedPasteBinPage extends AbstractPage {
 
+    private static final String SYNTAX_HIGHLIGHTING_XPATH = "//*[@class='left']/a";
+
     @FindBy(className = "textarea")
     private WebElement pasteText;
 
@@ -20,11 +22,11 @@ public class CreatedPasteBinPage extends AbstractPage {
     }
 
     public String pasteText() {
-        wait.until(driver -> !pasteText.getText().equals(""));
+        wait.until(driver -> !pasteText.getText().isEmpty());
         return pasteText.getText();
     }
 
     public String syntaxHighlightingLanguage() {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='left']/a"))).getText();
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SYNTAX_HIGHLIGHTING_XPATH))).getText();
     }
 }

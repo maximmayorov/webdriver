@@ -1,6 +1,9 @@
 package hardcore.page;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,6 +11,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
 public class GoogleCloudCalculatorPage extends AbstractPage {
+
+    private static final String TOTAL_ESTIMATE_XPATH = "//h2/b";
+    private static final String GPU_TYPE_DROPDOWN_MENU_XPATH = "//md-select[@ng-model='listingCtrl.computeServer.gpuType']";
+    private static final String GPU_NUMBER_DROPDOWN_MENU_XPATH = "//md-select[@ng-model='listingCtrl.computeServer.gpuCount']";
+    private static final String SSD_DROPDOWN_MENU_XPATH = "//md-select[@ng-model='listingCtrl.computeServer.ssd']";
+    private static final String EMAIL_ESTIMATE_BUTTON_XPATH = "email_quote";
+    private static final String EMAIL_INPUT_XPATH = "//input[@ng-model='emailQuote.user.email']";
+    private static final String SEND_EMAIL_BUTTON_XPATH = "//button[@aria-label='Send Email']";
+    private static final String OS_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-option/div[@class='md-text']";
+    private static final String VM_CLASS_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-option/div[@class='md-text']";
+    private static final String SERIES_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
+    private static final String INSTANCE_TYPE_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-optgroup/md-option/div[@class='md-text ng-binding']";
+    private static final String GPU_TYPE_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-option/div[@class='md-text ng-binding']";
+    private static final String GPU_NUMBER_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-option/div";
+    private static final String SSD_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-option/div";
+    private static final String LOCATION_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container cpc-region-select md-active md-clickable']/md-select-menu/md-content/md-optgroup/md-option/div";
+    private static final String USAGE_DROPDOWN_OPTION_XPATH = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/md-option/div[@class='md-text']";
 
     @FindBy(xpath = "//*[@id='cloud-site']/devsite-iframe/iframe")
     private WebElement firstFrame;
@@ -45,8 +65,6 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     @FindBy(xpath = "//button[@class='md-raised md-primary cpc-button md-button md-ink-ripple'][@ng-click='listingCtrl.addComputeServer(ComputeEngineForm);']")
     private WebElement addToEstimateButton;
 
-    private static final String commonLocatorPart = "//div[@class='md-select-menu-container md-active md-clickable']/md-select-menu/md-content/";
-
     public GoogleCloudCalculatorPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -78,26 +96,22 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
 
     public void selectOS(String os) {
         operatingSystem.click();
-        selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), os);
+        selectFromDropDownMenu(By.xpath(OS_DROPDOWN_OPTION_XPATH), os);
     }
 
     public void selectVMClass(String vmClass) {
         machineClass.click();
-        selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), vmClass);
+        selectFromDropDownMenu(By.xpath(VM_CLASS_DROPDOWN_OPTION_XPATH), vmClass);
     }
 
     public void selectMachineSeries(String machineSeries) {
         series.click();
-        selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), machineSeries);
+        selectFromDropDownMenu(By.xpath(SERIES_DROPDOWN_OPTION_XPATH), machineSeries);
     }
 
     public void selectInstanceType(String instanceType) {
         machineType.click();
-        selectFromDropDownMenu(By.
-                xpath(commonLocatorPart +"md-optgroup/md-option/div[@class='md-text ng-binding']"), instanceType);
+        selectFromDropDownMenu(By.xpath(INSTANCE_TYPE_DROPDOWN_OPTION_XPATH), instanceType);
     }
 
     public void setAddGPUsCheckBox() {
@@ -105,31 +119,28 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     }
 
     public void selectGPUType(String gpuType) {
-        waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuType']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div[@class='md-text ng-binding']"), gpuType);
+        waitForElement(By.xpath(GPU_TYPE_DROPDOWN_MENU_XPATH)).click();
+        selectFromDropDownMenu(By.xpath(GPU_TYPE_DROPDOWN_OPTION_XPATH), gpuType);
     }
 
     public void selectNumberOfGPUs(String number) {
-        waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.gpuCount']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), number);
+        waitForElement(By.xpath(GPU_NUMBER_DROPDOWN_MENU_XPATH)).click();
+        selectFromDropDownMenu(By.xpath(GPU_NUMBER_DROPDOWN_OPTION_XPATH), number);
     }
 
     public void selectSSDSize(String ssdSize) {
-        waitForElement(By.xpath("//md-select[@ng-model='listingCtrl.computeServer.ssd']")).click();
-        selectFromDropDownMenu(By.xpath(commonLocatorPart + "md-option/div"), ssdSize);
+        waitForElement(By.xpath(SSD_DROPDOWN_MENU_XPATH)).click();
+        selectFromDropDownMenu(By.xpath(SSD_DROPDOWN_OPTION_XPATH), ssdSize);
     }
 
     public void selectLocation(String machineLocation) {
         location.click();
-        selectFromDropDownMenu(By.
-                xpath("//div[@class='md-select-menu-container cpc-region-select md-active md-clickable'] " +
-                        "/md-select-menu/md-content/md-optgroup/md-option/div"), machineLocation);
+        selectFromDropDownMenu(By.xpath(LOCATION_DROPDOWN_OPTION_XPATH), machineLocation);
     }
 
     public void selectCommittedUsage(String usage) {
         committedUsage.click();
-        selectFromDropDownMenu(By.
-                xpath(commonLocatorPart + "md-option/div[@class='md-text']"), usage);
+        selectFromDropDownMenu(By.xpath(USAGE_DROPDOWN_OPTION_XPATH), usage);
     }
 
     public void addConfigurationToEstimate() {
@@ -137,13 +148,13 @@ public class GoogleCloudCalculatorPage extends AbstractPage {
     }
 
     public void sendEmail(String email) {
-        waitForElement(By.id("email_quote")).click();
-        waitForElement(By.xpath("//input[@ng-model='emailQuote.user.email']")).sendKeys(email);
-        waitForElement(By.xpath("//button[@aria-label='Send Email']")).click();
+        waitForElement(By.id(EMAIL_ESTIMATE_BUTTON_XPATH)).click();
+        waitForElement(By.xpath(EMAIL_INPUT_XPATH)).sendKeys(email);
+        waitForElement(By.xpath(SEND_EMAIL_BUTTON_XPATH)).click();
     }
 
     public String getTotalEstimate() {
-        return waitForElement(By.xpath("//h2/b")).getText();
+        return waitForElement(By.xpath(TOTAL_ESTIMATE_XPATH)).getText();
     }
 
     private WebElement waitForElement(By by) {

@@ -13,8 +13,8 @@ import java.time.Duration;
 public class PasteBinPage {
 
     private static final String PAGE_URL = "https://pastebin.com";
-    private static final int WAIT_TIMEOUT_SECONDS = 10;
     private static final String EXPIRATION_DROPDOWN_OPTION_XPATH = "//*[@id='select2-postform-expiration-results']/li[text()='%s']";
+    private static final int WAIT_TIMEOUT_SECONDS = 10;
     private final WebDriver driver;
 
     @FindBy(id = "postform-text")

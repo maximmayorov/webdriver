@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 public class TotalEstimateTest {
 
     private WebDriver driver;
+    private static final String CALCULATOR_SEARCH_QUERY = "Google Cloud Platform Pricing Calculator";
 
     @BeforeMethod(alwaysRun = true)
     public void browserSetup() {
@@ -27,7 +28,7 @@ public class TotalEstimateTest {
         CalculatorData data = CalculatorDataCreator.createDefaultData();
         GoogleCloudCalculatorPage calculatorPage = new GoogleCloudPage(driver)
                 .openPage()
-                .findCalculatorPage()
+                .findCalculatorPage(CALCULATOR_SEARCH_QUERY)
                 .openCalculatorPage();
         GoogleCloudCalculatorSteps googleCloudCalculatorSteps = new GoogleCloudCalculatorSteps(driver, calculatorPage);
         googleCloudCalculatorSteps.addToEstimate(data);

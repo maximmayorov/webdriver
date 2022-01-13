@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class GoogleCloudPage extends AbstractPage {
 
     private static final String PAGE_URL = "https://cloud.google.com/";
+    private static final String SEARCH_BUTTON_XPATH = "//button[@type='submit']";
 
     @FindBy(name = "q")
     private WebElement searchInput;
@@ -24,10 +25,10 @@ public class GoogleCloudPage extends AbstractPage {
         return this;
     }
 
-    public GoogleCloudSearchResultsPage findCalculatorPage() {
+    public GoogleCloudSearchResultsPage findCalculatorPage(String calculatorSearchQuery) {
         searchInput.click();
-        searchInput.sendKeys("Google Cloud Platform Pricing Calculator");
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@type='submit']"))).click();
+        searchInput.sendKeys(calculatorSearchQuery);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SEARCH_BUTTON_XPATH))).click();
         return new GoogleCloudSearchResultsPage(driver);
     }
 }

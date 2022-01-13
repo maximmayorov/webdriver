@@ -16,6 +16,7 @@ public class GoogleCloudCalculatorTests {
 
     private WebDriver driver;
     private static final String MANUAL_TEST_TOTAL_ESTIMATE = "1,841.97";
+    private static final String CALCULATOR_SEARCH_QUERY = "Google Cloud Platform Pricing Calculator";
     private GoogleCloudCalculatorSteps googleCloudCalculatorSteps;
     private GoogleCloudCalculatorPage calculatorPage;
 
@@ -25,7 +26,7 @@ public class GoogleCloudCalculatorTests {
         driver.manage().window().maximize();
         calculatorPage = new GoogleCloudPage(driver)
                 .openPage()
-                .findCalculatorPage()
+                .findCalculatorPage(CALCULATOR_SEARCH_QUERY)
                 .openCalculatorPage();
     }
 

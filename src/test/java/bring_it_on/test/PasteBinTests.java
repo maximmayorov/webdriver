@@ -10,8 +10,9 @@ import org.testng.annotations.Test;
 
 public class PasteBinTests {
 
-
-    private static final  String PASTE_NAME = "how to gain dominance among developers";
+    private static final String EXPIRATION_TIME = "10 Minutes";
+    private static final String SYNTAX_HIGHLIGHTING = "Bash";
+    private static final String PASTE_NAME = "how to gain dominance among developers";
     private static final String PASTE_TEXT = "git config --global user.name  \"New Sheriff in Town\"\n" +
             "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
             "git push origin master --force";
@@ -28,7 +29,7 @@ public class PasteBinTests {
    public void createdPasteBinPageTitleTest() {
        String pageTitle = new PasteBinPage(driver)
                .openPage()
-               .createPaste(PASTE_TEXT, "Bash", "10 Minutes", PASTE_NAME)
+               .createPaste(PASTE_TEXT, SYNTAX_HIGHLIGHTING, EXPIRATION_TIME, PASTE_NAME)
                .pageTitle();
        Assert.assertEquals(pageTitle, PASTE_NAME);
    }
@@ -37,16 +38,16 @@ public class PasteBinTests {
    public void pasteBinSyntaxHighlightingTest() {
        String syntaxHighlighting = new PasteBinPage(driver)
                .openPage()
-               .createPaste(PASTE_TEXT, "Bash", "10 Minutes", PASTE_NAME)
+               .createPaste(PASTE_TEXT, SYNTAX_HIGHLIGHTING, EXPIRATION_TIME, PASTE_NAME)
                .syntaxHighlightingLanguage();
-       Assert.assertEquals(syntaxHighlighting, "Bash");
+       Assert.assertEquals(syntaxHighlighting, SYNTAX_HIGHLIGHTING);
    }
 
    @Test
    public void pasteBinTextTest() {
        String pasteText = new PasteBinPage(driver)
                .openPage()
-               .createPaste(PASTE_TEXT, "Bash", "10 Minutes", PASTE_NAME)
+               .createPaste(PASTE_TEXT, SYNTAX_HIGHLIGHTING, EXPIRATION_TIME, PASTE_NAME)
                .pasteText();
        Assert.assertEquals(pasteText, PASTE_TEXT);
    }

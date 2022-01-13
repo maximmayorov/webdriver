@@ -13,6 +13,9 @@ import java.time.Duration;
 
 public class InboxEmailPage extends AbstractPage {
 
+    private static final String EMAIL_FRAME_XPATH = "ifmail";
+    private static final String TOTAL_ESTIMATE_XPATH = "//table/tbody/tr/td[2]/h3";
+
     @FindBy(xpath = "//div[@class='bname']")
     private WebElement email;
 
@@ -26,11 +29,11 @@ public class InboxEmailPage extends AbstractPage {
                 .withTimeout(Duration.ofSeconds(WAIT_TIMEOUT_SECONDS))
                 .pollingEvery(Duration.ofSeconds(WAIT_TIMEOUT_SECONDS / 5))
                 .ignoring(NoSuchElementException.class);
-        driver.switchTo().frame(driver.findElement(By.id("ifmail")));
+        driver.switchTo().frame(driver.findElement(By.id(EMAIL_FRAME_XPATH)));
         WebElement totalEstimate = fluentWait.until(driver -> {
             driver.navigate().refresh();
-            driver.switchTo().frame(driver.findElement(By.id("ifmail")));
-            return  driver.findElement(By.xpath("//table/tbody/tr/td[2]/h3"));
+            driver.switchTo().frame(driver.findElement(By.id(EMAIL_FRAME_XPATH)));
+            return  driver.findElement(By.xpath(TOTAL_ESTIMATE_XPATH));
         });
         return totalEstimate.getText();
     }

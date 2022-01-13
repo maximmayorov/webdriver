@@ -12,6 +12,8 @@ import java.time.Duration;
 public class PasteBinPage extends AbstractPage{
 
     private static final String PAGE_URL = "https://pastebin.com";
+    private static final String EXPIRATION_DROPDOWN_OPTION_XPATH = "//*[@id='select2-postform-expiration-results']/li[text()='%s']";
+    private static final String SYNTAX_HIGHLIGHTING_DROPDOWN_OPTION_XPATH = "//*[@id='select2-postform-format-results']/li/ul/li[text()='%s']";
 
     @FindBy(id = "postform-text")
     private WebElement pasteText;
@@ -40,9 +42,9 @@ public class PasteBinPage extends AbstractPage{
     public CreatedPasteBinPage createPaste(String text, String syntaxHighlighting, String expiration, String name) {
         pasteText.sendKeys(text);
         expirationMenu.click();
-        waitForElement(By.xpath("//*[@id='select2-postform-expiration-results']/li[text()='" + expiration + "']")).click();
+        waitForElement(By.xpath(String.format(EXPIRATION_DROPDOWN_OPTION_XPATH, expiration))).click();
         syntaxHighlightingMenu.click();
-        waitForElement(By.xpath("//*[@id='select2-postform-format-results']/li/ul/li[text()='" + syntaxHighlighting + "']")).click();
+        waitForElement(By.xpath(String.format(SYNTAX_HIGHLIGHTING_DROPDOWN_OPTION_XPATH, syntaxHighlighting))).click();
         pasteName.sendKeys(name);
         createButton.click();
         return new CreatedPasteBinPage(driver);
