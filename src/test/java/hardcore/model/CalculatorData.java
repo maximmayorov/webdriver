@@ -8,7 +8,7 @@ public class CalculatorData {
     private String os;
     private String vmClass;
     private String series;
-    private String InstanceType;
+    private String instanceType;
     private String gpuType;
     private String numberOfGPUs;
     private String ssd;
@@ -19,12 +19,12 @@ public class CalculatorData {
 
     }
 
-    public CalculatorData(String instances, String os, String vmClass, String series, String InstanceType, String gpuType, String numberOfGPUs, String ssd, String location, String committedUsage) {
+    public CalculatorData(String instances, String os, String vmClass, String series, String instanceType, String gpuType, String numberOfGPUs, String ssd, String location, String committedUsage) {
         this.instances = instances;
         this.os = os;
         this.vmClass = vmClass;
         this.series = series;
-        this.InstanceType = InstanceType;
+        this.instanceType = instanceType;
         this.gpuType = gpuType;
         this.numberOfGPUs = numberOfGPUs;
         this.ssd = ssd;
@@ -49,7 +49,7 @@ public class CalculatorData {
     }
 
     public String getInstanceType() {
-        return InstanceType;
+        return instanceType;
     }
 
     public String getGpuType() {
@@ -89,7 +89,7 @@ public class CalculatorData {
     }
 
     public void setInstanceType(String instanceType) {
-        this.InstanceType = instanceType;
+        this.instanceType = instanceType;
     }
 
     public void setGpuType(String gpuType) {
@@ -119,7 +119,7 @@ public class CalculatorData {
                 ", os='" + os + '\'' +
                 ", vmClass='" + vmClass + '\'' +
                 ", series='" + series + '\'' +
-                ", InstanceType='" + InstanceType + '\'' +
+                ", InstanceType='" + instanceType + '\'' +
                 ", gpuType='" + gpuType + '\'' +
                 ", numberOfGPUs='" + numberOfGPUs + '\'' +
                 ", ssd='" + ssd + '\'' +
@@ -137,7 +137,7 @@ public class CalculatorData {
                 Objects.equals(os, that.os) &&
                 Objects.equals(vmClass, that.vmClass) &&
                 Objects.equals(series, that.series) &&
-                Objects.equals(InstanceType, that.InstanceType) &&
+                Objects.equals(instanceType, that.instanceType) &&
                 Objects.equals(gpuType, that.gpuType) &&
                 Objects.equals(numberOfGPUs, that.numberOfGPUs) &&
                 Objects.equals(ssd, that.ssd) &&
@@ -147,6 +147,6 @@ public class CalculatorData {
 
     @Override
     public int hashCode() {
-        return Objects.hash(instances, os, vmClass, series, InstanceType, gpuType, numberOfGPUs, ssd, location, committedUsage);
+        return Objects.hash(instances, os, vmClass, series, instanceType, gpuType, numberOfGPUs, ssd, location, committedUsage);
     }
 }

@@ -18,6 +18,7 @@ public class GoogleCloudCalculatorSteps {
     }
 
     public void addToEstimate(CalculatorData data) {
+        calculatorPage.switchToCalculatorFrame();
         calculatorPage.selectTabComputeEngine();
         calculatorPage.setNumberOfInstance(data.getInstances());
         calculatorPage.selectOS(data.getOs());

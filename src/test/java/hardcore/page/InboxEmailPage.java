@@ -5,7 +5,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
@@ -21,7 +20,6 @@ public class InboxEmailPage extends AbstractPage {
 
     public InboxEmailPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public String getTotalEstimate() {
